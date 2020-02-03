@@ -1,0 +1,26 @@
+//*****Program 1*****
+
+program Helloworld;
+var
+	i: integer;
+
+begin
+	for i:= 1 to 10 do 
+		writeln('Hello World');
+end.
+
+
+
+
+//*****Program 2*****
+
+program exercise_2;
+var
+	array_1: array [1..7] of integer;
+	array_2: array [1..10] of integer;
+	array_3; array [1..40] of integer;
+	
+	
+
+
+	
