@@ -14,11 +14,98 @@ end.
 
 //*****Program 2*****
 
-program exercise_2;
+program Program_2;
+
 var
-	array_1: array [1..20] of integer;
-	array_2: array [1..20] of integer;
-	array_3; array [1..40] of integer;
+    array1 : array[1..20] of integer;           // integer arrays of size 20, 20, and 40.
+    array2 : array[1..20] of integer;
+    array3 : array[1..40] of integer;
+    i: integer;
+    j: integer;
+    k: integer;
+    g: integer;
+    n: integer;
+    r: integer;
+    x: integer;
+    y: integer;
+    temp: integer;
+    len: integer;
+
+begin
+    i:=1;
+    while not Eoln do               // loop reads in array_1 from stdin, eoln waits for the end of the line of text.
+    begin
+        read(array1[i+1]);
+        i:=i+1;
+    end;
+    
+    readln();
+    j:=1;
+    
+    while not Eoln do
+    
+    begin
+        read(array2[j]);
+        j:=j+1;
+    
+    end;
+    
+    write('This is array 1:');              //added some text to helo in console
+    writeln();                              //made the outputs look pretty.
+    n:= 1;
+    for g:=2 to i do
+    begin
+        write(array1[g]:3);
+        begin                               //decided to print the array and add to the new array in same loop
+            array3[n] := array1[g];
+            n:= n+1;
+        end;
+    end;
+
+    writeln();
+    writeln();
+    write('This is array 2:');
+    writeln();
+    
+    for k:=1 to j-1 do
+    begin
+        write(array2[k]:3);                     //continues to add array2 to array3 where array 1 left off.
+        begin
+            array3[n] := array2[k];
+            n:= n+1;
+        end;
+    end;
+    writeln();
+    
+    len:= g + k;                                //length of entire array
+    
+    begin
+	for x := len-1 DownTo 1 do
+		for y := 2 to x do
+			if (array3[y-1] > array3[y]) Then           //bubblesort to arrange in order
+			begin                                       //bubblesor is not super efficient but for our max set of 40 it is fine.
+				temp := array3[y-1];
+				array3[y-1] := array3[y];
+				array3[y] := temp;
+			end;
+	end;
+
+    writeln();
+    write('The resulting array is:');
+    writeln();
+    
+    for r:= 1 to len - 1 do
+    begin                                               //prints out the final array
+        write(array3[r]:3);
+    end;
+end.
+
+
+
+	
+	
+	
+
 	
 	
 
