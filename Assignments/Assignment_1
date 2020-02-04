@@ -10,8 +10,6 @@ begin
 end.
 
 
-
-
 //*****Program 2*****
 
 program Program_2;
@@ -98,6 +96,184 @@ begin
     begin                                               //prints out the final array
         write(array3[r]:3);
     end;
+end.
+
+
+//******Program 3*****
+
+Program Program_3;
+type 
+        Presidents = record
+            start_year: integer;
+            end_year: integer;							//Record containing start and end year plus name information.
+            first_name: packed array[1..30] of char;
+            middle_name: packed array[1..30] of char;
+            last_name: packed array[1..30] of char;
+        end;
+var
+    List: array [1..20] of Presidents;		
+    count: integer;
+    Listber: integer;
+	k: integer;
+	j: integer;
+	status: integer;
+	search: integer;
+    skipwhite: char;
+    name: packed array[1..30] of char;
+
+begin
+    count:=0;
+    status:=0;
+repeat
+    Listber:=1;
+    k:=1;
+    j:=1;
+    search:=0;						//Using stdin, reads the first Listber.
+    read(Listber);
+    if Listber<0 then 				//Negative Listber causes the hault of element creation.
+    begin
+    writeln();
+    writeln('LIST OF PRESIDENTS:');
+    for k:=0 to count-1 do
+        begin
+        writeln('Start year: ',List[k].start_year);
+        writeln('End year: ',List[k].end_year);
+        writeln('First Name: ',List[k].first_name);
+        writeln('Middle Name: ',List[k].middle_name);
+        writeln('Last Name: ',List[k].last_name);
+        writeln(' ');
+        end;
+    readln();						//Exits loop to enter search portion
+    while not eoln() do				//Searches the integer values of years and stops at the end of the text.
+    begin
+    read(search);
+		for k:=0 to count-1 do
+		if search<0 then			//stops searching at a negative Listber.
+			begin
+			status:=2;
+			end
+		else if search>= List[k].start_year then
+			begin										//loop shows the searched year along with the president
+			if search<=List[k].end_year then
+				begin							
+				writeln('Search year: ', search);
+				writeln('First Name: ',List[k].first_name);
+				writeln('Middle Name: ',List[k].middle_name);
+				writeln('Last Name: ',List[k].last_name);
+				writeln(' ');
+				writeln(' ');
+				status:=2;
+				end;
+			end;															//<> operator checks to see if two values are not equal.
+		if status<> 2 then 
+			begin
+			
+			writeln(search,': No presidents found for this year.');			//creates error message if there is no president from searched year
+			writeln(' ');
+			writeln(' ');
+			end;
+		status :=0;
+	end;
+    status :=1;
+    end
+		else if Listber>0 then
+		begin										//puts the elemets in the actual start and end year
+				List[count].start_year :=Listber;
+				read(Listber);
+				List[count].end_year :=Listber;
+		read(skipwhite);
+		 
+		while skipwhite =' ' do
+			begin									//igornes whitespaces
+			read(skipwhite);
+			end;
+		
+		while skipwhite<>' ' do
+			begin
+			List[count].first_name[k] :=skipwhite;		//stores first name until whitespace is found
+			inc(k);
+			read(skipwhite);
+			end;
+			
+		while k<31 do
+			begin
+			List[count].first_name[k]:= ' ';
+			inc(k);
+			end;
+		
+		while skipwhite=' ' do
+			begin
+			read(skipwhite);
+			end;
+		
+		name[j] :=skipwhite;					//will determine if there is a middle name
+		inc(j);
+		read(skipwhite);
+											//searches for periods to determine the middle name or regular name input
+				if skipwhite='.' then
+				begin
+					while skipwhite<>' ' do
+					begin
+						name[j] :=skipwhite;
+						inc(j);
+						read(skipwhite);
+					end;
+					while j<31 do 
+					begin
+						name[j]:=' ';
+						inc(j);
+					end;
+					for j:=0 to 31 do
+					begin
+						List[count].middle_name[j]:=name[j];
+					end;
+					j:=1;
+					read(skipwhite);
+					while not eoln() do				//continues until the end of the line
+					begin
+						List[count].last_name[j]:=skipwhite;
+						read(skipwhite);
+						inc(j);
+					end;
+						List[count].last_name[j]:=skipwhite;
+						inc(j);
+					while j<31 do
+					begin
+						List[count].last_name[j]:=' ';
+						inc(j);
+					end
+				end
+				
+			   else if skipwhite<>'.' then					// process will now repeat but instead will perfrom for last name
+				  begin
+					begin
+					while not eoln() do 
+					begin
+						name[j]:=skipwhite;
+						read(skipwhite);
+						inc(j);
+					end;
+					name[j]:=skipwhite;
+					inc(j);
+					while j<32 do
+					begin
+						name[j]:=' ';
+						inc(j);
+					end;
+					for j:=0 to 30 do 
+					begin
+						List[count].middle_name[j] := ' ';
+					end;
+					for j:=0 to 31 do
+					begin
+						List[count].last_name[j]:=name[j];
+					end
+					end
+				end;
+		count := count + 1;   //size counter
+		readln();
+		end;
+until status=1;
 end.
 
 
