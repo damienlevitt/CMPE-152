@@ -1,0 +1,21 @@
+damien@damien-VirtualBox:~/eclipse-workspace/Assignment 3/src$ make execute src=LoopErrors.txt flags=ix 
+./Chapter7cpp execute -ix LoopErrors.txt
+001 BEGIN {main}
+002     i := 1;
+003 
+004     LOOP
+005         When i = 10;
+                       ^
+*** Missing ==> [at ";"]
+006         i := i + 1;
+007     agaIn;
+008 
+009     WHEN i >= 14 ==>;
+        ^
+*** WHEN not in LOOP statement [at "WHEN"]
+010 END.
+
+                  10 source lines.
+                   2 syntax errors.
+                0.00 seconds total parsing time.
+
